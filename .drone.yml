@@ -6,3 +6,9 @@ steps:
   image: fanux/kubernetes-build:v1.0.0
   commands:
     - make all WHAT=cmd/kubeadm GOFLAGS=-v
+
+- name: publish
+  image: plugins/github-release
+  settings:
+    api_key: dd10058e1fb7a8587bd40abb2c16442237ae5dbf
+    files: dist/*
