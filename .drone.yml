@@ -1,0 +1,8 @@
+kind: pipeline
+name: default
+
+steps:
+- name: build
+  image: fanux/kubernetes-build:v1.0.0
+  commands:
+    - make all WHAT=cmd/kubeadm GOFLAGS=-v
