@@ -10,5 +10,8 @@ steps:
 - name: publish
   image: plugins/github-release
   settings:
-    api_key: dd10058e1fb7a8587bd40abb2c16442237ae5dbf
-    files: dist/*
+    api_key: 
+        from_secret: git-release-token
+    files: _output/local/bin/linux/amd64/kubeadm 
+    title: ${DRONE_COMMIT_MESSAGE}
+    note: CHANGELOG.md
