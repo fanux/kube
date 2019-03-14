@@ -1,0 +1,20 @@
+kind: pipeline
+name: default
+
+steps:
+- name: build
+  image: fanux/kubernetes-build:v1.0.0
+  commands:
+      #    - make all WHAT=cmd/kubelet GOFLAGS=-v
+      - KUBE_GIT_TREE_STATE="clean" KUBE_GIT_VERSION=${DRONE_TAG} KUBE_BUILD_PLATFORMS=linux/amd64 make all WHAT=cmd/kubelet GOFLAGS=-v
+
+- name: publish
+  image: plugins/github-release
+  settings:
+    api_key: 
+        from_secret: git-release-token
+    files: _output/local/bin/linux/amd64/kubelet 
+    title: ${DRONE_TAG}
+    note: Note.md
+    when:
+        event: tag
