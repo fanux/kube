@@ -1,11 +1,13 @@
 kind: pipeline
 name: default
+workspace:
+    base: /go
+    path: src/k8s.io/kubernetes
 
 steps:
 - name: build
   image: fanux/kubernetes-build:v1.0.0
   commands:
-      #    - make all WHAT=cmd/kubelet GOFLAGS=-v
       - KUBE_GIT_TREE_STATE="clean" KUBE_GIT_VERSION=${DRONE_TAG} KUBE_BUILD_PLATFORMS=linux/amd64 make all WHAT=cmd/kubelet GOFLAGS=-v
 
 - name: publish
