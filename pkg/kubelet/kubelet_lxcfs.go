@@ -14,9 +14,7 @@ func LxcfsMounts() []container.Mount {
 			HostPath:       "/var/lib/lxcfs/proc/cpuinfo",
 			ReadOnly:       true,
 			SELinuxRelabel: false,
-			Propagation: runtimeapi.MountPropagation{
-				runtimeapi.MountPropagation_PROPAGATION_HOST_TO_CONTAINER,
-			},
+			Propagation:    runtimeapi.MountPropagation_PROPAGATION_HOST_TO_CONTAINER,
 		},
 		{
 			Name:           "lxcfs-diskstats",
@@ -24,9 +22,7 @@ func LxcfsMounts() []container.Mount {
 			HostPath:       "/var/lib/lxcfs/proc/diskstats",
 			ReadOnly:       true,
 			SELinuxRelabel: false,
-			Propagation: runtimeapi.MountPropagation{
-				runtimeapi.MountPropagation_PROPAGATION_HOST_TO_CONTAINER,
-			},
+			Propagation:    runtimeapi.MountPropagation_PROPAGATION_HOST_TO_CONTAINER,
 		},
 		{
 			Name:           "lxcfs-meminfo",
@@ -34,9 +30,7 @@ func LxcfsMounts() []container.Mount {
 			HostPath:       "/var/lib/lxcfs/proc/meminfo",
 			ReadOnly:       true,
 			SELinuxRelabel: false,
-			Propagation: runtimeapi.MountPropagation{
-				runtimeapi.MountPropagation_PROPAGATION_HOST_TO_CONTAINER,
-			},
+			Propagation:    runtimeapi.MountPropagation_PROPAGATION_HOST_TO_CONTAINER,
 		},
 		{
 			Name:           "lxcfs-stat",
@@ -44,9 +38,7 @@ func LxcfsMounts() []container.Mount {
 			HostPath:       "/var/lib/lxcfs/proc/stat",
 			ReadOnly:       true,
 			SELinuxRelabel: false,
-			Propagation: runtimeapi.MountPropagation{
-				runtimeapi.MountPropagation_PROPAGATION_HOST_TO_CONTAINER,
-			},
+			Propagation:    runtimeapi.MountPropagation_PROPAGATION_HOST_TO_CONTAINER,
 		},
 		{
 			Name:           "lxcfs-swaps",
@@ -54,9 +46,7 @@ func LxcfsMounts() []container.Mount {
 			HostPath:       "/var/lib/lxcfs/proc/swaps",
 			ReadOnly:       true,
 			SELinuxRelabel: false,
-			Propagation: runtimeapi.MountPropagation{
-				runtimeapi.MountPropagation_PROPAGATION_HOST_TO_CONTAINER,
-			},
+			Propagation:    runtimeapi.MountPropagation_PROPAGATION_HOST_TO_CONTAINER,
 		},
 		{
 			Name:           "lxcfs-uptime",
@@ -64,9 +54,7 @@ func LxcfsMounts() []container.Mount {
 			HostPath:       "/var/lib/lxcfs/proc/uptime",
 			ReadOnly:       true,
 			SELinuxRelabel: false,
-			Propagation: runtimeapi.MountPropagation{
-				runtimeapi.MountPropagation_PROPAGATION_HOST_TO_CONTAINER,
-			},
+			Propagation:    runtimeapi.MountPropagation_PROPAGATION_HOST_TO_CONTAINER,
 		},
 	}
 }
