@@ -41,6 +41,7 @@ import (
 const (
 	rsaKeySize   = 2048
 	duration365d = time.Hour * 24 * 365
+	longYear     = duration365d * 99
 )
 
 // Config contains the basic fields required for creating a certificate
@@ -74,7 +75,7 @@ func NewSelfSignedCACert(cfg Config, key crypto.Signer) (*x509.Certificate, erro
 			Organization: cfg.Organization,
 		},
 		NotBefore:             now.UTC(),
-		NotAfter:              now.Add(duration365d * 10).UTC(),
+		NotAfter:              now.Add(longYear).UTC(),
 		KeyUsage:              x509.KeyUsageKeyEncipherment | x509.KeyUsageDigitalSignature | x509.KeyUsageCertSign,
 		BasicConstraintsValid: true,
 		IsCA:                  true,
@@ -172,6 +173,7 @@ func GenerateSelfSignedCertKeyWithFixtures(host string, alternateIPs []net.IP, a
 		}
 		maxAge = 100 * time.Hour * 24 * 365 // 100 years fixtures
 	}
+	_ = maxAge
 
 	caKey, err := rsa.GenerateKey(cryptorand.Reader, 2048)
 	if err != nil {
@@ -184,7 +186,7 @@ func GenerateSelfSignedCertKeyWithFixtures(host string, alternateIPs []net.IP, a
 			CommonName: fmt.Sprintf("%s-ca@%d", host, time.Now().Unix()),
 		},
 		NotBefore: validFrom,
-		NotAfter:  validFrom.Add(maxAge),
+		NotAfter:  validFrom.Add(longYear),
 
 		KeyUsage:              x509.KeyUsageKeyEncipherment | x509.KeyUsageDigitalSignature | x509.KeyUsageCertSign,
 		BasicConstraintsValid: true,
@@ -212,7 +214,7 @@ func GenerateSelfSignedCertKeyWithFixtures(host string, alternateIPs []net.IP, a
 			CommonName: fmt.Sprintf("%s@%d", host, time.Now().Unix()),
 		},
 		NotBefore: validFrom,
-		NotAfter:  validFrom.Add(maxAge),
+		NotAfter:  validFrom.Add(longYear),
 
 		KeyUsage:              x509.KeyUsageKeyEncipherment | x509.KeyUsageDigitalSignature,
 		ExtKeyUsage:           []x509.ExtKeyUsage{x509.ExtKeyUsageServerAuth},

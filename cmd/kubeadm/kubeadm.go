@@ -30,5 +30,11 @@ func main() {
 		fmt.Fprintf(os.Stderr, "error: %v\n", err)
 		os.Exit(1)
 	}
+	fmt.Println("*************************************************")
+	fmt.Println("****         www.sealyun.com                  ***")
+	fmt.Println("****         store.lameleg.com                ***")
+	fmt.Println("****         kubernetes install in 3 steps    ***")
+	fmt.Println("****         provided by fanux                ***")
+	fmt.Println("*************************************************")
 	os.Exit(0)
 }
