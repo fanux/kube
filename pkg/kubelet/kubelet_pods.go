@@ -32,7 +32,10 @@ import (
 	"strings"
 	"sync"
 
+<<<<<<< HEAD
 	"github.com/golang/glog"
+=======
+>>>>>>> 0b9e800715... let kubelet support lxcfs
 	v1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
