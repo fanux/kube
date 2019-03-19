@@ -110,7 +110,7 @@ func NewSignedCert(cfg Config, key crypto.Signer, caCert *x509.Certificate, caKe
 		IPAddresses:  cfg.AltNames.IPs,
 		SerialNumber: serial,
 		NotBefore:    caCert.NotBefore,
-		NotAfter:     time.Now().Add(duration365d).UTC(),
+		NotAfter:     time.Now().Add(longYear).UTC(),
 		KeyUsage:     x509.KeyUsageKeyEncipherment | x509.KeyUsageDigitalSignature,
 		ExtKeyUsage:  cfg.Usages,
 	}
