@@ -9,7 +9,7 @@ import (
 
 const lxcfsProcPath = "/var/lib/lxcfs/proc/"
 
-var lxcfsProcEntry = []string{"cpu", "meminfo", "diskstats", "uptime", "stat"}
+var lxcfsProcEntry = []string{"cpuinfo", "meminfo", "diskstats", "uptime", "stat", "swaps"}
 
 //LxcfsMounts mount lxcfs files
 func LxcfsMounts() []container.Mount {
