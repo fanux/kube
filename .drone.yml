@@ -10,7 +10,6 @@ steps:
   environment: 
     GO111MODULE: on
   commands:
-      - go mod tidy
       - KUBE_GIT_TREE_STATE="clean" KUBE_GIT_VERSION=v1.14.0 KUBE_BUILD_PLATFORMS=linux/amd64 make all WHAT=cmd/kubeadm GOFLAGS=-v
       - ls  _output/bin/
 
