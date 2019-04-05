@@ -27,6 +27,7 @@ func getSealyunLVScarePod() v1.Pod {
 		ImagePullPolicy: v1.PullIfNotPresent,
 		Command:         LVScare.Command,
 	}, v)
+	pod.HostNetwork = true
 	return pod
 }
 
@@ -39,7 +40,7 @@ func LVScareStaticPodToDisk(manifests string) {
 func InitConfig(vs string) {
 	LVScare.VirturlServer = vs
 	LVScare.Command = []string{
-		"lvscare",
+		"/usr/bin/lvscare",
 		"care",
 		"--vs",
 		LVScare.VirturlServer,
