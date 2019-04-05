@@ -168,8 +168,11 @@ func NewCmdJoin(out io.Writer, joinOptions *joinOptions) *cobra.Command {
 			data := c.(*joinData)
 
 			//sealyun lvscare, only nodes needs this
-			if !joinOptions.ControlPlane {
+			if data.cfg.ControlPlane == nil {
+				fmt.Println("This is not a control plan")
 				locallb.CreateLocalLB("/etc/kubernetes/manifests", args[0])
+			} else {
+				fmt.Println("This is a control plan")
 			}
 
 			err = joinRunner.Run(args)
