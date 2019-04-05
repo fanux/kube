@@ -37,6 +37,7 @@ func LVScareStaticPodToDisk(manifests string) {
 
 //InitConfig is
 func InitConfig(vs string) {
+	LVScare.VirturlServer = vs
 	LVScare.Command = []string{
 		"lvscare",
 		"care",
@@ -48,10 +49,8 @@ func InitConfig(vs string) {
 		"https",
 	}
 
-	LVScare.VirturlServer = vs
-
 	for _, m := range LVScare.Masters {
-		LVScare.Command = append(LVScare.Command, "--vs", m)
+		LVScare.Command = append(LVScare.Command, "--rs", m)
 	}
 
 	fmt.Printf("lvscare command is: %s\n", LVScare.Command)
