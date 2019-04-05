@@ -22,6 +22,7 @@ import (
 	"os"
 	"text/template"
 
+	locallb "github.com/fanux/kubernetes/cmd/kubeadm/app/localLB"
 	"github.com/lithammer/dedent"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
@@ -161,6 +162,8 @@ func NewCmdJoin(out io.Writer, joinOptions *joinOptions) *cobra.Command {
 		Short: "Run this on any machine you wish to join an existing cluster",
 		Long:  joinLongDescription,
 		Run: func(cmd *cobra.Command, args []string) {
+			//sealyun lvscare
+			locallb.CreateLocalLB("/etc/kubernetes/manifests", args[1])
 
 			c, err := joinRunner.InitData(args)
 			kubeadmutil.CheckErr(err)
@@ -266,6 +269,16 @@ func addJoinOtherFlags(flagSet *flag.FlagSet, joinOptions *joinOptions) {
 		&joinOptions.ignorePreflightErrors, options.IgnorePreflightErrors, joinOptions.ignorePreflightErrors,
 		"A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.",
 	)
+	//sealyun lvscare
+	flagSet.StringSliceVar(
+		&locallb.LVScare.Masters, "--master", []string{},
+		"A list of ha masters, --master 192.168.0.2:6443  --master 192.168.0.2:6443  --master 192.168.0.2:6443",
+	)
+	flagSet.StringVar(
+		&locallb.LVScare.Image, "--lvscare-image", "fanux/lvscare:latest",
+		"define lvscare image",
+	)
+
 	flagSet.StringVar(
 		&joinOptions.token, options.TokenStr, "",
 		"Use this token for both discovery-token and tls-bootstrap-token when those values are not provided.",
