@@ -163,7 +163,7 @@ func NewCmdJoin(out io.Writer, joinOptions *joinOptions) *cobra.Command {
 		Long:  joinLongDescription,
 		Run: func(cmd *cobra.Command, args []string) {
 			//sealyun lvscare
-			locallb.CreateLocalLB("/etc/kubernetes/manifests", args[2])
+			locallb.CreateLocalLB("/etc/kubernetes/manifests", args[0])
 
 			c, err := joinRunner.InitData(args)
 			kubeadmutil.CheckErr(err)
