@@ -27,7 +27,7 @@ func getSealyunLVScarePod() v1.Pod {
 		ImagePullPolicy: v1.PullIfNotPresent,
 		Command:         LVScare.Command,
 	}, v)
-	pod.HostNetwork = true
+	pod.Spec.HostNetwork = true
 	return pod
 }
 
