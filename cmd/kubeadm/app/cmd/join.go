@@ -163,7 +163,7 @@ func NewCmdJoin(out io.Writer, joinOptions *joinOptions) *cobra.Command {
 		Long:  joinLongDescription,
 		Run: func(cmd *cobra.Command, args []string) {
 			//sealyun lvscare
-			locallb.CreateLocalLB("/etc/kubernetes/manifests", args[1])
+			locallb.CreateLocalLB("/etc/kubernetes/manifests", args[2])
 
 			c, err := joinRunner.InitData(args)
 			kubeadmutil.CheckErr(err)
@@ -271,11 +271,11 @@ func addJoinOtherFlags(flagSet *flag.FlagSet, joinOptions *joinOptions) {
 	)
 	//sealyun lvscare
 	flagSet.StringSliceVar(
-		&locallb.LVScare.Masters, "--master", []string{},
+		&locallb.LVScare.Masters, "master", []string{},
 		"A list of ha masters, --master 192.168.0.2:6443  --master 192.168.0.2:6443  --master 192.168.0.2:6443",
 	)
 	flagSet.StringVar(
-		&locallb.LVScare.Image, "--lvscare-image", "fanux/lvscare:latest",
+		&locallb.LVScare.Image, "lvscare-image", "fanux/lvscare:latest",
 		"define lvscare image",
 	)
 
