@@ -168,7 +168,7 @@ func NewCmdJoin(out io.Writer, joinOptions *joinOptions) *cobra.Command {
 			data := c.(*joinData)
 
 			//sealyun lvscare, only nodes needs this
-			if data.cfg.ControlPlane == nil {
+			if !joinOptions.ControlPlane {
 				locallb.CreateLocalLB("/etc/kubernetes/manifests", args[0])
 			}
 
