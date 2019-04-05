@@ -162,13 +162,15 @@ func NewCmdJoin(out io.Writer, joinOptions *joinOptions) *cobra.Command {
 		Short: "Run this on any machine you wish to join an existing cluster",
 		Long:  joinLongDescription,
 		Run: func(cmd *cobra.Command, args []string) {
-			//sealyun lvscare
-			locallb.CreateLocalLB("/etc/kubernetes/manifests", args[0])
-
 			c, err := joinRunner.InitData(args)
 			kubeadmutil.CheckErr(err)
 
 			data := c.(*joinData)
+
+			//sealyun lvscare, only nodes needs this
+			if data.cfg.ControlPlane == nil {
+				locallb.CreateLocalLB("/etc/kubernetes/manifests", args[0])
+			}
 
 			err = joinRunner.Run(args)
 			kubeadmutil.CheckErr(err)
