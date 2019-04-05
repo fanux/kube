@@ -19,19 +19,20 @@ type Config struct {
 	Command       []string // [lvscare care --vs 10.103.97.12:6443 --rs 127.0.0.1:8081 --rs 127.0.0.1:8082 --rs 127.0.0.1:8083 --health-path / --health-schem http]
 }
 
-func getSealyunLVScarePod() *v1.Pod {
+func getSealyunLVScarePod() v1.Pod {
+	v := make(map[string]v1.Volume)
 	pod := staticpod.ComponentPod(v1.Container{
 		Name:            "kube-sealyun-lvscare",
 		Image:           LVScare.Image,
 		ImagePullPolicy: v1.PullIfNotPresent,
 		Command:         LVScare.Command,
-	})
-	return &pod
+	}, v)
+	return pod
 }
 
 //LVScareStaticPodToDisk is
 func LVScareStaticPodToDisk(manifests string) {
-	staticpod.WriteStaticPodToDisk("kube-sealyun-lvscare", manifests, *getSealyunLVScarePod)
+	staticpod.WriteStaticPodToDisk("kube-sealyun-lvscare", manifests, getSealyunLVScarePod())
 }
 
 //InitConfig is
@@ -49,7 +50,7 @@ func InitConfig(vs string) {
 
 	LVScare.VirturlServer = vs
 
-	for _, m := range Masters {
+	for _, m := range LVScare.Masters {
 		LVScare.Command = append(LVScare.Command, "--vs", m)
 	}
 
@@ -63,7 +64,7 @@ func CreateLVSFirstTime() {
 
 	lvs, err := service.BuildLvscare(vs, rs)
 	if err != nil {
-		return err
+		fmt.Println(err)
 	}
 
 	//check virturl server
