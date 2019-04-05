@@ -49,3 +49,6 @@ Life is much easier!
 Every node config a ipvs for masters LB.
 
 Then run a lvscare as a staic pod to check realserver is aviliable. `/etc/kubernetes/manifests/sealyun-lvscare.yaml`
+
+# [LVScare](https://github.com/sealyun/LVScare)
+A lvs for kubernetes masters
