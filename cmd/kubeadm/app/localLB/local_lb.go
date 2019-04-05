@@ -21,11 +21,13 @@ type Config struct {
 
 func getSealyunLVScarePod() v1.Pod {
 	v := make(map[string]v1.Volume)
+	t := true
 	pod := staticpod.ComponentPod(v1.Container{
 		Name:            "kube-sealyun-lvscare",
 		Image:           LVScare.Image,
 		ImagePullPolicy: v1.PullIfNotPresent,
 		Command:         LVScare.Command,
+		SecurityContext: *v1.SecurityContext{Privileged: &t},
 	}, v)
 	pod.Spec.HostNetwork = true
 	return pod
