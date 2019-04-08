@@ -8,15 +8,18 @@ apiServer:
         certSANs:
         - 127.0.0.1
         - apiserver.cluster.local
-        - 10.103.97.100
-        - 10.103.97.101
-        - 10.103.97.102
-        - 10.103.97.103
+        - 172.20.241.205
+        - 172.20.241.206
+        - 172.20.241.207
+        - 172.20.241.208
         - 10.103.97.1          # virturl ip
 ---
 apiVersion: kubeproxy.config.k8s.io/v1alpha1
 kind: KubeProxyConfiguration
 mode: "ipvs"
+ipvs:
+        excludeCIDRs:
+        - "10.103.97.1/32" # if you don't add this kube-proxy will clean your ipvs rule
 ```
 ## On master0 10.103.97.100
 ```

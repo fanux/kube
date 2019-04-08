@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/fanux/LVScare/service"
+	"github.com/fanux/LVScare/utils"
 	v1 "k8s.io/api/core/v1"
 	"k8s.io/kubernetes/cmd/kubeadm/app/util/staticpod"
 )
@@ -76,7 +77,17 @@ func CreateLVSFirstTime() {
 	}
 
 	//check real server
-	lvs.CheckRealServers("/healthz", "https")
+	//lvs.CheckRealServers("/healthz", "https")
+
+	for _, r := range rs {
+		rip, rport := utils.SplitServer(r)
+		if rip == "" || rport == "" {
+			fmt.Println("real server ip and port is null")
+		}
+		lvs.AddRealServer(rip, rport)
+	}
+
+	fmt.Println("creat ipvs first time", vs, rs)
 }
 
 //CreateLocalLB is
