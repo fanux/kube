@@ -91,8 +91,8 @@ func CreateLVSFirstTime() {
 }
 
 //CreateLocalLB is
-func CreateLocalLB(manifests string, vs string) {
+func CreateLocalLB(vs string) {
 	InitConfig(vs)
 	CreateLVSFirstTime()
-	LVScareStaticPodToDisk(manifests)
+	//LVScareStaticPodToDisk(manifests)
 }

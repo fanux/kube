@@ -18,8 +18,8 @@ apiVersion: kubeproxy.config.k8s.io/v1alpha1
 kind: KubeProxyConfiguration
 mode: "ipvs"
 ipvs:
-        excludeCIDRs:
-        - "10.103.97.1/32" # if you don't add this kube-proxy will clean your ipvs rule
+        excludeCIDRs: 
+        - "10.103.97.1/32" # if you don't add this kube-proxy will clean your ipvs rule(kube-proxy still remove it)
 ```
 ## On master0 10.103.97.100
 ```
