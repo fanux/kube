@@ -10,7 +10,7 @@ steps:
   environment: 
     GO111MODULE: on
   commands:
-      - KUBE_GIT_TREE_STATE="clean" KUBE_GIT_VERSION=v1.14.0 KUBE_BUILD_PLATFORMS=linux/amd64 make all WHAT=cmd/kubeadm GOFLAGS=-v
+      - KUBE_GIT_TREE_STATE="clean" KUBE_GIT_VERSION=v1.14.0 KUBE_BUILD_PLATFORMS=linux/amd64 make all WHAT=cmd/kubelet GOFLAGS=-v
       - ls  _output/bin/
 
 - name: publish
@@ -18,7 +18,7 @@ steps:
   settings:
     api_key: 
         from_secret: git-release-token
-    files: _output/bin/kubeadm
+    files: _output/bin/kubelet
     title: ${DRONE_TAG}
     note: Note.md
     when:
