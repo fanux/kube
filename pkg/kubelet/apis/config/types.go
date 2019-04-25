@@ -17,7 +17,7 @@ limitations under the License.
 package config
 
 import (
-	"k8s.io/api/core/v1"
+	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -197,6 +197,10 @@ type KubeletConfiguration struct {
 	// CPU Manager reconciliation period.
 	// Requires the CPUManager feature gate to be enabled.
 	CPUManagerReconcilePeriod metav1.Duration
+	// Actual CPU utilization is much lower then pod CPU request quota.
+	CPUAllocationRatio float32
+	// Actual CPU utilization is much lower then pod CPU request quota.
+	MemoryAllocationRatio float32
 	// Map of QoS resource reservation percentages (memory only for now).
 	// Requires the QOSReserved feature gate to be enabled.
 	QOSReserved map[string]string
