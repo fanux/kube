@@ -17,7 +17,7 @@ limitations under the License.
 package v1beta1
 
 import (
-	"k8s.io/api/core/v1"
+	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -409,6 +409,10 @@ type KubeletConfiguration struct {
 	// Default: "10s"
 	// +optional
 	CPUManagerReconcilePeriod metav1.Duration `json:"cpuManagerReconcilePeriod,omitempty"`
+	// Actual CPU utilization is much lower then pod CPU request quota.
+	CPUAllocationRatio float32 `json:"cpuAllocationRatio,omitempty"`
+	// Actual CPU utilization is much lower then pod CPU request quota.
+	MemoryAllocationRatio float32 `json:"memoryAllocationRatio ,omitempty"`
 	// qosReserved is a set of resource name to percentage pairs that specify
 	// the minimum percentage of a resource reserved for exclusive use by the
 	// guaranteed QoS tier.
