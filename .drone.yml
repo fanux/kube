@@ -10,6 +10,7 @@ steps:
   environment: 
     GO111MODULE: on
   commands:
+      - make generated_files UPDATE_API_KNOWN_VIOLATIONS=true
       - KUBE_GIT_TREE_STATE="clean" KUBE_GIT_VERSION=v1.14.0 KUBE_BUILD_PLATFORMS=linux/amd64 make all WHAT=cmd/kubelet GOFLAGS=-v
       - ls  _output/bin/
 
