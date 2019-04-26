@@ -165,7 +165,6 @@ API rule violation: names_match,k8s.io/kube-proxy/config/v1alpha1,KubeProxyConfi
 API rule violation: names_match,k8s.io/kubelet/config/v1beta1,KubeletConfiguration,IPTablesDropBit
 API rule violation: names_match,k8s.io/kubelet/config/v1beta1,KubeletConfiguration,IPTablesMasqueradeBit
 API rule violation: names_match,k8s.io/kubelet/config/v1beta1,KubeletConfiguration,ResolverConfig
-API rule violation: names_match,k8s.io/kubelet/config/v1beta1,KubeletConfiguration,MemoryAllocationRatio
 API rule violation: names_match,k8s.io/kubernetes/cmd/cloud-controller-manager/app/apis/config/v1alpha1,CloudControllerManagerConfiguration,Generic
 API rule violation: names_match,k8s.io/kubernetes/cmd/cloud-controller-manager/app/apis/config/v1alpha1,CloudControllerManagerConfiguration,KubeCloudShared
 API rule violation: names_match,k8s.io/kubernetes/cmd/cloud-controller-manager/app/apis/config/v1alpha1,CloudControllerManagerConfiguration,NodeStatusUpdateFrequency
