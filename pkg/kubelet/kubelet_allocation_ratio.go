@@ -39,10 +39,14 @@ func ratioResource(ratio float32, resource resource.Quantity) resource.Quantity 
 }
 
 func showNodeResource(node *v1.Node) {
-	cpuC, _ := node.Status.Capacity[v1.ResourceCPU].AsInt64()
-	cpuA, _ := node.Status.Allocatable[v1.ResourceCPU].AsInt64()
+	cpuC, _ := node.Status.Capacity[v1.ResourceCPU]
+	cpuCint, _ := cpuC.AsInt64()
+	cpuA, _ := node.Status.Allocatable[v1.ResourceCPU]
+	cpuAint, _ := cpuA.AsInt64()
 
-	memC, _ := node.Status.Capacity[v1.ResourceMemory].AsInt64()
-	memA, _ := node.Status.Allocatable[v1.ResourceMemory].AsInt64()
-	klog.Infof("CPU capacity: %d, CPU allocatable: %d, memory capacity: %d, memory allocatable:%d\n", cpuC, cpuA, memC, memA)
+	memC, _ := node.Status.Capacity[v1.ResourceMemory]
+	memCint, _ := memC.AsInt64()
+	memA, _ := node.Status.Allocatable[v1.ResourceMemory]
+	memAint, _ := memA.AsInt64()
+	klog.Infof("CPU capacity: %d, CPU allocatable: %d, memory capacity: %d, memory allocatable:%d\n", cpuCint, cpuAint, memCint, memAint)
 }

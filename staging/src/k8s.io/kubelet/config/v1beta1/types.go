@@ -409,12 +409,15 @@ type KubeletConfiguration struct {
 	// Default: "10s"
 	// +optional
 	CPUManagerReconcilePeriod metav1.Duration `json:"cpuManagerReconcilePeriod,omitempty"`
-	//cpuAllocationRatio is for cpu ratio
+	// cpuAllocationRatio is for cpu ratio
 	// Actual CPU utilization is much lower then pod CPU request quota.
 	// Default: 1
 	// +optional
 	CPUAllocationRatio float32 `json:"cpuAllocationRatio,omitempty"`
+	// memoryAllocationRatio is for cpu ratio
 	// Actual CPU utilization is much lower then pod CPU request quota.
+	// Default: 1
+	// +optional
 	MemoryAllocationRatio float32 `json:"memoryAllocationRatio ,omitempty"`
 	// qosReserved is a set of resource name to percentage pairs that specify
 	// the minimum percentage of a resource reserved for exclusive use by the
