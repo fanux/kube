@@ -409,7 +409,10 @@ type KubeletConfiguration struct {
 	// Default: "10s"
 	// +optional
 	CPUManagerReconcilePeriod metav1.Duration `json:"cpuManagerReconcilePeriod,omitempty"`
+	//cpuAllocationRatio is for cpu ratio
 	// Actual CPU utilization is much lower then pod CPU request quota.
+	// Default: 1
+	// +optional
 	CPUAllocationRatio float32 `json:"cpuAllocationRatio,omitempty"`
 	// Actual CPU utilization is much lower then pod CPU request quota.
 	MemoryAllocationRatio float32 `json:"memoryAllocationRatio ,omitempty"`

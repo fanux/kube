@@ -264,6 +264,8 @@ func autoConvert_v1beta1_KubeletConfiguration_To_config_KubeletConfiguration(in 
 	out.KubeletCgroups = in.KubeletCgroups
 	out.SystemCgroups = in.SystemCgroups
 	out.CgroupRoot = in.CgroupRoot
+	out.CPUAllocationRatio = in.CPUAllocationRatio
+	out.MemoryAllocationRatio = in.MemoryAllocationRatio
 	if err := v1.Convert_Pointer_bool_To_bool(&in.CgroupsPerQOS, &out.CgroupsPerQOS, s); err != nil {
 		return err
 	}
