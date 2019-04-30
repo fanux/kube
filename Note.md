@@ -34,3 +34,6 @@ Allocatable:
 Edit kubelet config file, change the allocation ratio, and restart kubelet.
 
 Then describe node again
+
+# Test
+Create a pod witch require 6 (node CPU real cores<6<after ratio cores) cores CPU, if pod run success, it worked.
