@@ -4,8 +4,8 @@ Actual CPU utilization is much lower then pod CPU request quota.
 # Using kubelet config file, 
 default is: `/var/lib/kubelet/config.yaml`
 ```
-cpuAllocationRatio 3.5
-memoryAllocationRatio 1.5
+cpuAllocationRatio: 3.5   # float32
+memoryAllocationRatio: 2  # must uint64
 ```
 
 # Usage 

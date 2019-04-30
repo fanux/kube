@@ -23,7 +23,7 @@ func (kl *Kubelet) updateNodeRatio() {
 		kl.machineInfo.NumCores = cpu
 	}
 
-	mem := uint64(float64(kl.machineInfo.MemoryCapacity) * float64(memoryRatio))
+	mem := kl.machineInfo.MemoryCapacity * memoryRatio
 	if mem > kl.machineInfo.MemoryCapacity {
 		kl.machineInfo.MemoryCapacity = mem
 	}

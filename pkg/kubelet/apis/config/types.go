@@ -198,7 +198,7 @@ type KubeletConfiguration struct {
 	// Requires the CPUManager feature gate to be enabled.
 	CPUManagerReconcilePeriod metav1.Duration
 	// Actual CPU utilization is much lower then pod CPU request quota.
-	CPUAllocationRatio float32
+	CPUAllocationRatio uint64
 	// Actual CPU utilization is much lower then pod CPU request quota.
 	MemoryAllocationRatio float32
 	// Map of QoS resource reservation percentages (memory only for now).
