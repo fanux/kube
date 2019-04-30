@@ -1426,7 +1426,7 @@ func (kl *Kubelet) Run(updates <-chan kubetypes.PodUpdate) {
 		kl.runtimeClassManager.Start(wait.NeverStop)
 	}
 
-	// Fanux add cpu memory ratio
+	//fanux using cpu ratio
 	kl.updateNodeRatio()
 
 	// Start the pod lifecycle event generator.

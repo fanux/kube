@@ -7,6 +7,38 @@ import (
 )
 
 func (kl *Kubelet) updateNodeRatio() {
+	// For debug
+	node, err := kl.GetNode()
+	if err != nil {
+		klog.Errorf(err.Error())
+		return
+	}
+	showNodeResource(node)
+
+	cpuRatio := kl.kubeletConfiguration.CPUAllocationRatio
+	memoryRatio := kl.kubeletConfiguration.MemoryAllocationRatio
+
+	kl.machineInfo.NumCores = int(float32(kl.machineInfo.NumCores) * cpuRatio)
+	kl.machineInfo.MemoryCapacity = uint64(float32(kl.machineInfo.MemoryCapacity) * memoryRatio)
+
+	//For debug
+	showNodeResource(node)
+}
+
+/*
+func (kl *Kubelet) updateNodeRatio() {
+	// TO set machine info instead node info!
+	kl.machineInfo =
+	NumCores int `json:"num_cores"`
+
+	// Maximum clock speed for the cores, in KHz.
+	CpuFrequency uint64 `json:"cpu_frequency_khz"`
+
+	// The amount of memory (in bytes) in this machine
+	MemoryCapacity uint64 `json:"memory_capacity"`
+
+
+
 	node, err := kl.GetNode()
 	if err != nil {
 		klog.Errorf(err.Error())
@@ -25,6 +57,7 @@ func (kl *Kubelet) updateNodeRatio() {
 
 	kl.syncNodeStatus()
 }
+*/
 
 func ratioResource(ratio float32, resource resource.Quantity) resource.Quantity {
 	i, ok := resource.AsInt64()
