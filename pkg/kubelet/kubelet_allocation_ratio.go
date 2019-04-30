@@ -18,8 +18,15 @@ func (kl *Kubelet) updateNodeRatio() {
 	cpuRatio := kl.kubeletConfiguration.CPUAllocationRatio
 	memoryRatio := kl.kubeletConfiguration.MemoryAllocationRatio
 
-	kl.machineInfo.NumCores = int(float32(kl.machineInfo.NumCores) * cpuRatio)
-	kl.machineInfo.MemoryCapacity = uint64(float32(kl.machineInfo.MemoryCapacity) * memoryRatio)
+	cpu := int(float32(kl.machineInfo.NumCores) * cpuRatio)
+	if cpu > kl.machineInfo.NumCores {
+		kl.machineInfo.NumCores = cpu
+	}
+
+	mem := uint64(float64(kl.machineInfo.MemoryCapacity) * float64(memoryRatio))
+	if mem > kl.machineInfo.MemoryCapacity {
+		kl.machineInfo.MemoryCapacity = mem
+	}
 
 	//For debug
 	showNodeResource(node)
