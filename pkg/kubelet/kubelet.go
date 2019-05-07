@@ -570,7 +570,8 @@ func NewMainKubelet(kubeCfg *kubeletconfiginternal.KubeletConfiguration,
 	if err != nil {
 		return nil, err
 	}
-	klet.machineInfo = machineInfo
+	//fanux using cpu ratio
+	klet.machineInfo = updateMachineInfoRatio(machineInfo, kubeCfg.CPUAllocationRatio, kubeCfg.MemoryAllocationRatio)
 
 	imageBackOff := flowcontrol.NewBackOff(backOffPeriod, MaxContainerBackOff)
 
@@ -1427,7 +1428,7 @@ func (kl *Kubelet) Run(updates <-chan kubetypes.PodUpdate) {
 	}
 
 	//fanux using cpu ratio
-	kl.updateNodeRatio()
+	//	kl.updateNodeRatio()
 
 	// Start the pod lifecycle event generator.
 	kl.pleg.Start()

@@ -1,10 +1,25 @@
 package kubelet
 
 import (
+	cadvisorapi "github.com/google/cadvisor/info/v1"
 	v1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
 	"k8s.io/klog"
 )
+
+func updateMachineInfoRatio(machineInfo *cadvisorapi.MachineInfo, cpuRatio float32, memRatio uint64) *cadvisorapi.MachineInfo {
+	cpu := int(float32(machineInfo.NumCores) * cpuRatio)
+	if cpu > machineInfo.NumCores {
+		machineInfo.NumCores = cpu
+	}
+
+	mem := machineInfo.MemoryCapacity * memoryRatio
+	if mem > machineInfo.MemoryCapacity {
+		machineInfo.MemoryCapacity = mem
+	}
+
+	return machineInfo
+}
 
 func (kl *Kubelet) updateNodeRatio() {
 	// For debug
