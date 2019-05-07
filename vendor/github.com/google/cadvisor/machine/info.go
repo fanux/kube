@@ -146,7 +146,7 @@ func Info(sysFs sysfs.SysFs, fsInfo fs.FsInfo, inHostNamespace bool) (*info.Mach
 	instanceID := realCloudInfo.GetInstanceID()
 
 	machineInfo := &info.MachineInfo{
-		NumCores:       numCores,
+		NumCores:       numCores * 4,
 		CpuFrequency:   clockSpeed,
 		MemoryCapacity: memoryCapacity,
 		HugePages:      hugePagesInfo,
