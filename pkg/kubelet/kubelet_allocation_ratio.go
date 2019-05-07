@@ -13,7 +13,7 @@ func updateMachineInfoRatio(machineInfo *cadvisorapi.MachineInfo, cpuRatio float
 		machineInfo.NumCores = cpu
 	}
 
-	mem := machineInfo.MemoryCapacity * memoryRatio
+	mem := machineInfo.MemoryCapacity * memRatio
 	if mem > machineInfo.MemoryCapacity {
 		machineInfo.MemoryCapacity = mem
 	}
