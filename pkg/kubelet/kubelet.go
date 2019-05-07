@@ -571,7 +571,8 @@ func NewMainKubelet(kubeCfg *kubeletconfiginternal.KubeletConfiguration,
 		return nil, err
 	}
 	//fanux using cpu ratio
-	klet.machineInfo = updateMachineInfoRatio(machineInfo, kubeCfg.CPUAllocationRatio, kubeCfg.MemoryAllocationRatio)
+	//klet.machineInfo = updateMachineInfoRatio(machineInfo, kubeCfg.CPUAllocationRatio, kubeCfg.MemoryAllocationRatio)
+	klet.machineInfo = machineInfo
 
 	imageBackOff := flowcontrol.NewBackOff(backOffPeriod, MaxContainerBackOff)
 

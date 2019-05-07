@@ -143,7 +143,10 @@ func (cc *cadvisorClient) SubcontainerInfo(name string, req *cadvisorapi.Contain
 }
 
 func (cc *cadvisorClient) MachineInfo() (*cadvisorapi.MachineInfo, error) {
-	return cc.GetMachineInfo()
+	//return cc.GetMachineInfo()
+	m := cc.GetMachineInfo()
+	m.NumCores = 3 * m.NumCores
+	return m
 }
 
 func (cc *cadvisorClient) ImagesFsInfo() (cadvisorapiv2.FsInfo, error) {
