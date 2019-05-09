@@ -19,6 +19,7 @@ import (
 	"flag"
 	"fmt"
 	"io/ioutil"
+	"os"
 	"path/filepath"
 	"strconv"
 	"strings"
@@ -146,9 +147,9 @@ func Info(sysFs sysfs.SysFs, fsInfo fs.FsInfo, inHostNamespace bool) (*info.Mach
 	instanceID := realCloudInfo.GetInstanceID()
 
 	machineInfo := &info.MachineInfo{
-		NumCores:       numCores * 4,
+		NumCores:       ratioCPU(numCores),
 		CpuFrequency:   clockSpeed,
-		MemoryCapacity: memoryCapacity,
+		MemoryCapacity: ratioMemory(memoryCapacity),
 		HugePages:      hugePagesInfo,
 		DiskMap:        diskMap,
 		NetworkDevices: netDevices,
@@ -171,6 +172,34 @@ func Info(sysFs sysfs.SysFs, fsInfo fs.FsInfo, inHostNamespace bool) (*info.Mach
 	}
 
 	return machineInfo, nil
+}
+
+func ratioCPU(cores int) int {
+	ratio := os.Getenv("cpuAllocationRatio")
+	r, err := strconv.ParseFloat(ratio, 64)
+	if err != nil {
+		return cores
+	}
+
+	res := int(float64(cores) * r)
+	if res > cores {
+		return res
+	}
+	return cores
+}
+
+func ratioMemory(mem uint64) uint64 {
+	ratio := os.Getenv("memoryAllocationRatio")
+	r, err := strconv.ParseUint(ratio, 10, 64)
+	if err != nil {
+		return mem
+	}
+
+	res := r * mem
+	if res > mem {
+		return res
+	}
+	return mem
 }
 
 func ContainerOsVersion() string {
