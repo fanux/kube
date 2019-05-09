@@ -123,3 +123,13 @@ now pod running:
 NAME       READY   STATUS    RESTARTS   AGE
 cpu-demo   1/1     Running   0          4m49s
 ```
+
+# Using Env config
+memoryAllocationRatio uint64
+cpuAllocationRatio float64
+
+```
+[Service]
+Environment="cpuAllocationRatio=3.5"
+Environment="memoryAllocationRatio=3"
+```
