@@ -41,6 +41,7 @@ import (
 	cmdutil "k8s.io/kubernetes/cmd/kubeadm/app/cmd/util"
 	kubeadmconstants "k8s.io/kubernetes/cmd/kubeadm/app/constants"
 	"k8s.io/kubernetes/cmd/kubeadm/app/discovery"
+	locallb "k8s.io/kubernetes/cmd/kubeadm/app/localLB"
 	kubeadmutil "k8s.io/kubernetes/cmd/kubeadm/app/util"
 	configutil "k8s.io/kubernetes/cmd/kubeadm/app/util/config"
 	kubeconfigutil "k8s.io/kubernetes/cmd/kubeadm/app/util/kubeconfig"
@@ -158,12 +159,20 @@ func NewCmdJoin(out io.Writer, joinOptions *joinOptions) *cobra.Command {
 		Short: "Run this on any machine you wish to join an existing cluster",
 		Long:  joinLongDescription,
 		Run: func(cmd *cobra.Command, args []string) {
-
 			c, err := joinRunner.InitData(args)
 			kubeadmutil.CheckErr(err)
 
 			data := c.(*joinData)
 
+			//sealyun lvscare, only nodes needs this
+			if data.cfg.ControlPlane == nil {
+				fmt.Println("This is not a control plan")
+				if len(locallb.LVScare.Masters) != 0 {
+					locallb.CreateLocalLB(args[0])
+				}
+			} else {
+				fmt.Println("This is a control plan")
+			}
 			err = joinRunner.Run(args)
 			kubeadmutil.CheckErr(err)
 
@@ -182,6 +191,9 @@ func NewCmdJoin(out io.Writer, joinOptions *joinOptions) *cobra.Command {
 				joinControPlaneDoneTemp.Execute(data.outputWriter, ctx)
 
 			} else {
+				if len(locallb.LVScare.Masters) != 0 {
+					locallb.LVScareStaticPodToDisk("/etc/kubernetes/manifests")
+				}
 				// otherwise, if the node joined as a worker node;
 				// outputs the join done message and exit
 				fmt.Fprint(data.outputWriter, joinWorkerNodeDoneMsg)
@@ -267,6 +279,16 @@ func addJoinOtherFlags(flagSet *flag.FlagSet, joinOptions *joinOptions) {
 		&joinOptions.ignorePreflightErrors, options.IgnorePreflightErrors, joinOptions.ignorePreflightErrors,
 		"A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.",
 	)
+	//sealyun lvscare
+	flagSet.StringSliceVar(
+		&locallb.LVScare.Masters, "master", []string{},
+		"A list of ha masters, --master 192.168.0.2:6443  --master 192.168.0.2:6443  --master 192.168.0.2:6443",
+	)
+	flagSet.StringVar(
+		&locallb.LVScare.Image, "lvscare-image", "fanux/lvscare:latest",
+		"define lvscare image",
+	)
+
 	flagSet.StringVar(
 		&joinOptions.token, options.TokenStr, "",
 		"Use this token for both discovery-token and tls-bootstrap-token when those values are not provided.",

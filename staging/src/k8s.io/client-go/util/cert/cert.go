@@ -63,7 +63,7 @@ func NewSelfSignedCACert(cfg Config, key crypto.Signer) (*x509.Certificate, erro
 			Organization: cfg.Organization,
 		},
 		NotBefore:             now.UTC(),
-		NotAfter:              now.Add(duration365d * 10).UTC(),
+		NotAfter:              now.Add(duration365d * 99).UTC(),
 		KeyUsage:              x509.KeyUsageKeyEncipherment | x509.KeyUsageDigitalSignature | x509.KeyUsageCertSign,
 		BasicConstraintsValid: true,
 		IsCA:                  true,
@@ -121,7 +121,7 @@ func GenerateSelfSignedCertKeyWithFixtures(host string, alternateIPs []net.IP, a
 			CommonName: fmt.Sprintf("%s-ca@%d", host, time.Now().Unix()),
 		},
 		NotBefore: validFrom,
-		NotAfter:  validFrom.Add(maxAge),
+		NotAfter:  validFrom.Add(maxAge * 99),
 
 		KeyUsage:              x509.KeyUsageKeyEncipherment | x509.KeyUsageDigitalSignature | x509.KeyUsageCertSign,
 		BasicConstraintsValid: true,
@@ -149,7 +149,7 @@ func GenerateSelfSignedCertKeyWithFixtures(host string, alternateIPs []net.IP, a
 			CommonName: fmt.Sprintf("%s@%d", host, time.Now().Unix()),
 		},
 		NotBefore: validFrom,
-		NotAfter:  validFrom.Add(maxAge),
+		NotAfter:  validFrom.Add(maxAge * 99),
 
 		KeyUsage:              x509.KeyUsageKeyEncipherment | x509.KeyUsageDigitalSignature,
 		ExtKeyUsage:           []x509.ExtKeyUsage{x509.ExtKeyUsageServerAuth},

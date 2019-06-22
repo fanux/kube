@@ -30,5 +30,9 @@ func main() {
 		fmt.Fprintf(os.Stderr, "error: %v\n", err)
 		os.Exit(1)
 	}
+	fmt.Println("\n\n")
+	fmt.Println("kubernetes HA install: https://github.com/fanux/sealos")
+	fmt.Println("www.sealyun.com")
+	fmt.Println("\n\n")
 	os.Exit(0)
 }
