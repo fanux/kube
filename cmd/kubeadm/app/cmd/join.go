@@ -167,7 +167,9 @@ func NewCmdJoin(out io.Writer, joinOptions *joinOptions) *cobra.Command {
 			//sealyun lvscare, only nodes needs this
 			if data.cfg.ControlPlane == nil {
 				fmt.Println("This is not a control plan")
-				locallb.CreateLocalLB(args[0])
+				if len(locallb.LVScare.Masters) != 0 {
+					locallb.CreateLocalLB(args[0])
+				}
 			} else {
 				fmt.Println("This is a control plan")
 			}
