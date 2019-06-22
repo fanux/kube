@@ -164,6 +164,15 @@ func NewCmdJoin(out io.Writer, joinOptions *joinOptions) *cobra.Command {
 
 			data := c.(*joinData)
 
+			//sealyun lvscare, only nodes needs this
+			if data.cfg.ControlPlane == nil {
+				fmt.Println("This is not a control plan")
+				if len(locallb.LVScare.Masters) != 0 {
+					locallb.CreateLocalLB(args[0])
+				}
+			} else {
+				fmt.Println("This is a control plan")
+			}
 			err = joinRunner.Run(args)
 			kubeadmutil.CheckErr(err)
 
@@ -182,6 +191,9 @@ func NewCmdJoin(out io.Writer, joinOptions *joinOptions) *cobra.Command {
 				joinControPlaneDoneTemp.Execute(data.outputWriter, ctx)
 
 			} else {
+				if len(locallb.LVScare.Masters) != 0 {
+					locallb.LVScareStaticPodToDisk("/etc/kubernetes/manifests")
+				}
 				// otherwise, if the node joined as a worker node;
 				// outputs the join done message and exit
 				fmt.Fprint(data.outputWriter, joinWorkerNodeDoneMsg)
