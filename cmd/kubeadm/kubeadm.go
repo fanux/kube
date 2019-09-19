@@ -17,10 +17,17 @@ limitations under the License.
 package main
 
 import (
+	"fmt"
+
 	"k8s.io/kubernetes/cmd/kubeadm/app"
 	"k8s.io/kubernetes/cmd/kubeadm/app/util"
 )
 
 func main() {
 	util.CheckErr(app.Run())
+	fmt.Println("\n\n")
+	fmt.Println("kubernetes HA install: https://github.com/fanux/sealos")
+	fmt.Println("www.sealyun.com")
+	fmt.Println("QQ group: 98488045")
+	fmt.Println("\n\n")
 }
