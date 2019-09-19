@@ -51,6 +51,7 @@ require (
 	github.com/emicklei/go-restful v2.9.5+incompatible
 	github.com/euank/go-kmsg-parser v2.0.0+incompatible // indirect
 	github.com/evanphx/json-patch v4.2.0+incompatible
+	github.com/fanux/LVScare/service v1.0.1
 	github.com/fsnotify/fsnotify v1.4.7
 	github.com/go-bindata/go-bindata v3.1.1+incompatible
 	github.com/go-openapi/analysis v0.19.5

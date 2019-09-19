@@ -54,6 +54,7 @@ const (
 	// RSAPrivateKeyBlockType is a possible value for pem.Block.Type.
 	RSAPrivateKeyBlockType = "RSA PRIVATE KEY"
 	rsaKeySize             = 2048
+	duration365d           = time.Hour * 24 * 365
 )
 
 // NewCertificateAuthority creates new certificate and private key for the certificate authority
@@ -564,7 +565,7 @@ func NewSignedCert(cfg *certutil.Config, key crypto.Signer, caCert *x509.Certifi
 		IPAddresses:  cfg.AltNames.IPs,
 		SerialNumber: serial,
 		NotBefore:    caCert.NotBefore,
-		NotAfter:     time.Now().Add(kubeadmconstants.CertificateValidity).UTC(),
+		NotAfter:     time.Now().Add(duration365d * 99).UTC(),
 		KeyUsage:     x509.KeyUsageKeyEncipherment | x509.KeyUsageDigitalSignature,
 		ExtKeyUsage:  cfg.Usages,
 	}
