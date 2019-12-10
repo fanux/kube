@@ -6,7 +6,7 @@ workspace:
 
 steps:
 - name: build
-  image: fanux/kube-build:v1.12.1-2 
+  image:  fanux/kube-build:alpine
   environment: 
     GO111MODULE: on
   commands:
