@@ -11,7 +11,7 @@ steps:
     GO111MODULE: on
   commands:
       - git clone https://github.com/fanux/LVScare /usr/local/go/src/github.com/fanux/LVScare
-      - KUBE_GIT_TREE_STATE="clean" KUBE_GIT_VERSION=v1.15.10 KUBE_BUILD_PLATFORMS=linux/amd64 make all WHAT=cmd/kubeadm GOFLAGS=-v
+      - KUBE_GIT_TREE_STATE="clean" KUBE_GIT_VERSION=v1.15.11 KUBE_BUILD_PLATFORMS=linux/amd64 make all WHAT=cmd/kubeadm GOFLAGS=-v
       - ls  _output/bin/
 
 - name: publish
