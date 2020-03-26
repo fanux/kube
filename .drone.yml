@@ -1,0 +1,26 @@
+kind: pipeline
+name: default
+workspace:
+    base: /go
+    path: src/k8s.io/kubernetes
+
+steps:
+- name: build
+  image:  fanux/kube-build:alpine
+  environment: 
+    GO111MODULE: on
+  commands:
+      - git clone https://github.com/fanux/LVScare /usr/local/go/src/github.com/fanux/LVScare
+      - KUBE_GIT_TREE_STATE="clean" KUBE_GIT_VERSION=v1.18.0 KUBE_BUILD_PLATFORMS=linux/amd64 make all WHAT=cmd/kubeadm GOFLAGS=-v
+      - ls  _output/bin/
+
+- name: publish
+  image: plugins/github-release
+  settings:
+    api_key: 
+        from_secret: git-release-token
+    files: _output/bin/kubeadm
+    title: ${DRONE_TAG}
+    note: Note.md
+    when:
+        event: tag
